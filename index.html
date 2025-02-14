@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:type" content="website">
+    <meta property="og:image" content="a.jpg">
+    <link rel="icon" href='a.jpg'>
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+        <meta name="theme-color" content="#0665d0">
+    <title>Thiệp Chúc Mừng Sinh Nhật</title>
+    <style>
+        body {
+            text-align: center;
+            background: linear-gradient(45deg, #ff9a9e, #fad0c4);
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            font-family: Arial, sans-serif;
+            overflow: hidden;
+            position: relative;
+        }
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            position: relative;
+            animation: fadeIn 2s ease-in-out;
+            z-index: 2;
+        }
+        .avatar {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 15px;
+        }
+        h1 {
+            color: #ff4e50;
+            margin-bottom: 20px;
+        }
+        p {
+            color: #333;
+            margin-bottom: 30px;
+        }
+        .cake {
+            width: 200px;
+            height: 120px;
+            background: #ffcc80;
+            border-radius: 10px 10px 0 0;
+            position: relative;
+            margin: 40px auto 20px auto;
+        }
+        .cake::before {
+            content: "";
+            width: 220px;
+            height: 20px;
+            background: #d2691e;
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            border-radius: 10px;
+        }
+        .candle {
+            width: 10px;
+            height: 40px;
+            background: red;
+            position: absolute;
+            top: -40px;
+        }
+        .candle:nth-child(1) { left: 20%; }
+        .candle:nth-child(2) { left: 40%; }
+        .candle:nth-child(3) { left: 60%; }
+        .candle:nth-child(4) { left: 80%; }
+        .flame {
+            width: 15px;
+            height: 20px;
+            background: orange;
+            border-radius: 50%;
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: flicker 0.5s infinite alternate;
+        }
+        @keyframes flicker {
+            0% { opacity: 1; transform: scale(1.1); }
+            100% { opacity: 0.8; transform: scale(0.9); }
+        }
+        .fireworks {
+            position: absolute;
+            width: 5px;
+            height: 5px;
+            background: yellow;
+            border-radius: 50%;
+            animation: fireworks 1.5s linear infinite;
+            z-index: 1;
+        }
+        @keyframes fireworks {
+            0% { transform: translateY(0); opacity: 1; }
+            100% { transform: translateY(-100px); opacity: 0; }
+        }
+        .blow-button {
+            padding: 10px 20px;
+            background: #ff4e50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        @keyframes fadeOut {
+            to { opacity: 0; }
+        }
+    </style>
+</head>
+<body onload="document.getElementById('birthdaySong').play(); createFireworks();">
+    <div class="card">
+        <img src="s.jpg" alt="Ảnh đại diện" class="avatar">
+        <h1>Chúc Mừng Sinh Nhật!</h1>
+        <p>Chúc bạn có một ngày sinh nhật thật vui vẻ, hạnh phúc và tràn đầy yêu thương!</p>
+        <div class="cake">
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+            <div class="candle"><div class="flame"></div></div>
+        </div>
+        <button class="blow-button" id="blowButton">Thổi nến</button>
+    </div>
+    <audio id="birthdaySong" src="download.mp3" autoplay></audio>
+    <script>
+        document.getElementById("blowButton").addEventListener("click", function() {
+            let flames = document.querySelectorAll(".flame");
+            flames.forEach(flame => {
+                flame.style.animation = "fadeOut 1s forwards";
+                flame.style.opacity = "0";
+            });
+            document.getElementById('birthdaySong').play();
+            createFireworks();
+        });
+        function createFireworks() {
+            for (let i = 0; i < 10; i++) {
+                let firework = document.createElement("div");
+                firework.className = "fireworks";
+                firework.style.left = Math.random() * 100 + "%";
+                firework.style.top = Math.random() * 50 + "%";
+                document.body.appendChild(firework);
+                setTimeout(() => firework.remove(), 1500);
+            }
+            setTimeout(createFireworks, 2000);
+        }
+    </script>
+</body>
+</html>
